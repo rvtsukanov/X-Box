@@ -5,26 +5,18 @@ body {
 h3 {
   color: white;
   text-align: center;
-  font-size: 25rem;
+  font-size: 30px;
   font-family: 'Josefin Slab', serif;
   border-style: dashed;
   margin-top: auto;
 }
 
-div {
-  background-color: black;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  margin: 0px;
-  padding: 0px;
-  width: 240px;
-}
-
 .gamepad{
   margin-top: 5px;
   left: 10%;
-  position: absolute;
+  height: 35%;
+  width: 35%;
+  margin-left: 7%;
 }
 
 div p{
