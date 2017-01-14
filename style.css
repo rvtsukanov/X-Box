@@ -1,18 +1,14 @@
 body {
-  background-image: url('hazard.jpg');
+  background-image: url('BG.jpg');
 }
 
 h3 {
   color: white;
   text-align: center;
-  font-size: 3rem;
+  font-size: 25rem;
   font-family: 'Josefin Slab', serif;
-}
-
-p {
-  color: white;
-  text-align: center;
-  font-family: 'Josefin Slab', serif;
+  border-style: dashed;
+  margin-top: auto;
 }
 
 div {
@@ -25,18 +21,9 @@ div {
   width: 240px;
 }
 
- .chosen {
-  background-color: #1C1C1C;
-}
-
-.tgl{
-  width: auto;
-  height: 5%;
-  padding: 0px;
-  margin: 0px;
-  background-color: green;
-  left: 0;
-  right: 0;
+.gamepad{
+  margin-top: 5px;
+  left: 10%;
   position: absolute;
 }
 
