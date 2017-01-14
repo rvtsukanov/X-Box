@@ -1,0 +1,49 @@
+body {
+  background-image: url('hazard.jpg');
+}
+
+h3 {
+  color: white;
+  text-align: center;
+  font-size: 3rem;
+  font-family: 'Josefin Slab', serif;
+}
+
+p {
+  color: white;
+  text-align: center;
+  font-family: 'Josefin Slab', serif;
+}
+
+div {
+  background-color: black;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  margin: 0px;
+  padding: 0px;
+  width: 240px;
+}
+
+ .chosen {
+  background-color: #1C1C1C;
+}
+
+.tgl{
+  width: auto;
+  height: 5%;
+  padding: 0px;
+  margin: 0px;
+  background-color: green;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+div p{
+  color: yellow;
+  font-size: 4rem;
+  text-align: center;
+  border: 1px solid yellow;
+
+}
