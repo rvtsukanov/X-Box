@@ -1,14 +1,5 @@
-$(document).ready(function(){
-  window.addEventListener("gamepadconnected", function(e) {
-  console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
-    e.gamepad.index, e.gamepad.id,
-    e.gamepad.buttons.length, e.gamepad.axes.length);
-  });
-  window.addEventListener("gamepaddisconnected", function(e) {
-  console.log("Gamepad disconnected from index %d: %s",
-    e.gamepad.index, e.gamepad.id);
-  });
-  var haveEvents = 'ongamepadconnected' in window;
+
+var haveEvents = 'ongamepadconnected' in window;
 var controllers = {};
 
 function connecthandler(e) {
@@ -106,6 +97,7 @@ function updateStatus() {
 
     var axes = d.getElementsByClassName("axis");
     for (i = 0; i < controller.axes.length; i++) {
+      //console.log('controller.axes.length');
       var a = axes[i];
       a.innerHTML = i + ": " + controller.axes[i].toFixed(4);
       a.setAttribute("value", controller.axes[i] + 1);
@@ -135,4 +127,3 @@ window.addEventListener("gamepaddisconnected", disconnecthandler);
 if (!haveEvents) {
   setInterval(scangamepads, 500);
 }
-});
