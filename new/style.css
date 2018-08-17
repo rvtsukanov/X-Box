@@ -1,0 +1,28 @@
+body {
+background-color: red;
+
+}
+
+h3 {
+  color: white;
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Josefin Slab', serif;
+  border-style: dashed;
+  margin-top: auto;
+}
+
+.gamepad{
+  margin-top: 5px;
+  left: 10%;
+  height: 35%;
+  width: 35%;
+  margin-left: 7%;
+}
+
+div p{
+  color: yellow;
+  font-size: 4rem;
+  text-align: center;
+  border: 1px solid yellow;
+}
