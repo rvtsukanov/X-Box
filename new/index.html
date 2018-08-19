@@ -4,9 +4,136 @@
       <link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
       <link rel='stylesheet' href='style.css' type='text/css'>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-      <script src="script.js"></script>
+        <script src="../three.js"></script>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <style>
+        body { margin: 0; background-color: bisque }
+        canvas { width: 100%; height: 100%; background-color: white }
+      </style>
     </head>
     <body>
+    <canvas id="main_scene"></canvas>
+    <script>
+
+        //Setting up a gamepads
+        console.log(navigator.getGamepads())
+        var gamepads = navigator.getGamepads()
+
+        var urls = [
+                '../3d-obj/pos-x.png',
+                '../3d-obj/neg-x.png',
+                '../3d-obj/pos-y.png',
+                '../3d-obj/neg-y.png',
+                '../3d-obj/pos-z.png',
+                '../3d-obj/neg-z.png'
+            ];
+
+        cubemap = THREE.ImageUtils.loadTextureCube(urls);
+        cubemap.format = THREE.RGBFormat;
+
+
+
+
+
+
+        // Creating scene
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+        var renderer = new THREE.WebGLRenderer({
+            canvas: document.getElementById('main_scene'),
+            antialias: true
+        });
+
+        renderer.setClearColor('white');
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+       // scene.background = cubemap;
+
+        var light1 = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(light1);
+
+        var light2 = new THREE.PointLight(0xffffff, .5, 1);
+        scene.add(light2);
+
+
+
+        console.log(document.body)
+        document.body.appendChild( renderer.domElement );
+
+        var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+
+
+        //var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+
+        var material = new THREE.MeshLambertMaterial({
+            reflectivity: 0.3,
+            color: '#ffeb2b',
+            envMap: cubemap
+        });
+
+
+
+        var cube = new THREE.Mesh( geometry, material );
+        scene.add( cube );
+
+
+
+        camera.position.z = 5;
+
+
+
+        var i = 0;
+
+        function checker(){
+            requestAnimationFrame(checker);
+
+
+            var gamepad = navigator.getGamepads()[0];
+            var back = document.getElementsByTagName('body');
+
+
+
+            pos1 = gamepad.axes[0];
+            pos2 = gamepad.axes[1];
+            pos3 = gamepad.axes[2];
+            pos4 = gamepad.axes[3];
+/*
+            cur_pos1 = camera.positionX;
+            cur_pos2 = camera.positionY;
+*/
+      //      camera.position.set(cur_pos1 + 0.5 * pos1, cur_pos2 + 0.5 * pos1, 10);
+
+
+          //  console.log(pos);
+
+        //    a = 100*pos %  255 + 50;
+          //  console.log('rgb(' + a.toString() + ',' + a.toString() + ',' + a.toString() + ')');
+       //     document.body.style.backgroundColor = 'rgb(' + Math.ceil(a).toString() + ',' + 0 + ',' + 0 + ')';
+            console.log(document.body.style.backgroundColor);
+
+          //camera.position.set(10, 10, 15);
+            camera.rotation.y -= 0.03 * pos1;
+            camera.rotation.x -= 0.03 * pos2;
+
+            camera.position.x += 0.03 * pos3;
+            camera.position.z += 0.03 * pos4;
+
+            //cube.rotation.x = 0.01 * a;
+            //cube.rotation.y = 0.01 * a;
+
+            renderer.render( scene, camera );
+
+        }
+
+        checker();
+
+        //setInterval(checker, 50);
+
+        //requestAnimationFrame(checker, 1000);
+
+
+
+    </script>
+
     </body>
   </html>
