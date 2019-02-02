@@ -12,8 +12,72 @@
       </style>
     </head>
     <body>
+
+    <style>
+      .menu {
+          width: 200px;
+          box-shadow: 0 4px 5px 3px rgba(0, 0, 0, 0.2);
+          position: relative;
+          display: none;
+      }
+
+      .menu-options {
+            list-style: none;
+            padding: 10px 0;
+        }
+          .menu-option {
+              text-align: center;
+              font-weight: 500;
+              font-size: 14px;
+              padding: 10px 40px 10px 20px;
+              cursor: pointer;
+          }
+              .menu-option:hover {
+                 background: rgba(0, 0, 0, 0.2);
+               }
+
+
+    </style>
+
     <canvas id="main_scene"></canvas>
+    <div class="menu">
+        <ul class="menu-options">
+            <li class="menu-option"><img src="radioactive.png"><p>Back</p></li>
+            <li class="menu-option"><img src="radioactive.png"><p>Back</p></li>
+            <li class="menu-option"><img src="radioactive.png"><p>Back</p></li>
+            <li class="menu-option"><img src="radioactive.png"><p>Back</p></li>
+            <li class="menu-option"><img src="radioactive.png"><p>Back</p></li>
+        </ul>
+    </div>
     <script>
+
+        const menu = document.querySelector(".menu");
+        let menuVisible = false;
+
+        const toggleMenu = command => {
+            menu.style.display = command === "show" ? "block" : "none";
+            menuVisible = !menuVisible;
+        };
+
+        const setPosition = ({ top, left }) => {
+            menu.style.left = `${left}px`;
+            menu.style.top = `${top}px`;
+            toggleMenu("show");
+        };
+
+        window.addEventListener("click", e => {
+            if(menuVisible)toggleMenu("hide");
+        });
+
+        window.addEventListener("contextmenu", e => {
+            e.preventDefault();
+            const origin = {
+                left: e.pageX,
+                top: e.pageY
+            };
+            setPosition(origin);
+            return false;
+        });
 
         //Setting up a gamepads
         console.log(navigator.getGamepads())
@@ -33,7 +97,9 @@
 
 
 
-
+        window.addEventListener("contextmenu", e => {
+            e.preventDefault();
+        });
 
 
         // Creating scene
@@ -67,7 +133,7 @@
 
         var material = new THREE.MeshLambertMaterial({
             reflectivity: 0.3,
-            color: '#ffeb2b',
+            color: '#f8fff1',
             envMap: cubemap
         });
 
@@ -75,15 +141,40 @@
 
         var cube = new THREE.Mesh( geometry, material );
         scene.add( cube );
-
-
-
         camera.position.z = 5;
-
-
-
         var i = 0;
 
+
+
+        var loader = new THREE.OBJLoader();
+
+        // load a resource
+        loader.load(
+            // resource URL
+            '../model.obj',
+            // called when resource is loaded
+            function ( object ) {
+
+                scene.add( object );
+
+            },
+            // called when loading is in progresses
+            function ( xhr ) {
+
+                console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+
+            },
+            // called when loading has errors
+            function ( error ) {
+
+                console.log( 'An error happened' );
+
+            }
+        );
+
+
+
+        var threshold = 0.2;
         function checker(){
             requestAnimationFrame(checker);
 
@@ -97,6 +188,24 @@
             pos2 = gamepad.axes[1];
             pos3 = gamepad.axes[2];
             pos4 = gamepad.axes[3];
+
+
+
+            if(Math.abs(pos1) < threshold){
+                pos1 = 0;
+            }
+
+            if(Math.abs(pos2) < threshold){
+                pos2 = 0;
+            }
+
+            if(Math.abs(pos3) < threshold){
+                pos3 = 0;
+            }
+
+            if(Math.abs(pos4) < threshold){
+                pos4 = 0;
+            }
 /*
             cur_pos1 = camera.positionX;
             cur_pos2 = camera.positionY;
@@ -109,7 +218,7 @@
         //    a = 100*pos %  255 + 50;
           //  console.log('rgb(' + a.toString() + ',' + a.toString() + ',' + a.toString() + ')');
        //     document.body.style.backgroundColor = 'rgb(' + Math.ceil(a).toString() + ',' + 0 + ',' + 0 + ')';
-            console.log(document.body.style.backgroundColor);
+           // console.log(document.body.style.backgroundColor);
 
           //camera.position.set(10, 10, 15);
             camera.rotation.y -= 0.03 * pos1;

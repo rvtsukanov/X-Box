@@ -20,9 +20,13 @@ h3 {
   margin-left: 7%;
 }
 
-div p{
-  color: yellow;
-  font-size: 4rem;
+p {
   text-align: center;
-  border: 1px solid yellow;
+
+}
+
+li{
+
+  display: inline;
+  position: relative;
 }
